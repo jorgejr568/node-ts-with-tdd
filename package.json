@@ -15,10 +15,6 @@
   "author": "Jorge Junior <jorge.junior.568@live.com>",
   "license": "ISC",
   "dependencies": {
-    "@types/node": "^13.13.5",
-    "@types/validator": "^13.0.0",
-    "git-commit-msg-linter": "^2.4.2",
-    "typescript": "^3.8.3",
     "validator": "^13.0.0"
   },
   "devDependencies": {
@@ -33,6 +29,10 @@
     "husky": "^4.2.5",
     "jest": "^25.5.4",
     "lint-staged": "^10.2.2",
-    "ts-jest": "^25.5.0"
+    "ts-jest": "^25.5.0",
+    "@types/node": "^13.13.5",
+    "@types/validator": "^13.0.0",
+    "git-commit-msg-linter": "^2.4.2",
+    "typescript": "^3.8.3"
   }
 }
