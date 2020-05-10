@@ -1,6 +1,6 @@
 import { Authentication, Controller, HttpRequest, HttpResponse } from './login-protocols'
 import { badRequest, okResponse, serverError, unauthorizedRequest } from '../../helpers'
-import { Validation } from '../../protocols/validation'
+import { Validation } from '../../protocols'
 
 export class LoginController implements Controller {
   private readonly authentication: Authentication
@@ -17,7 +17,7 @@ export class LoginController implements Controller {
       if (error) return badRequest(error)
 
       const { email, password } = httpRequest.body
-      const accessToken = await this.authentication.auth(email, password)
+      const accessToken = await this.authentication.auth({ email, password })
       if (!accessToken) return unauthorizedRequest()
 
       return new Promise(resolve => resolve(okResponse({ accessToken })))

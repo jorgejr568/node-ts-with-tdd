@@ -1,5 +1,5 @@
-import { ValidationComposite } from './validation-composite'
-import { Validation } from '../protocols/validation'
+import { ValidationComposite } from './'
+import { Validation } from '../protocols'
 
 interface SutTypes {
   sut: ValidationComposite
