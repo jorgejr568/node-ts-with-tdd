@@ -221,4 +221,14 @@ describe('SignUp Controller', () => {
 
     expect(httpResponse).toEqual(okResponse(makeFakeAccount()))
   })
+
+  test('Should returns 400 if validation returns an error', async () => {
+    const { sut, validationStub } = makeSut()
+    jest.spyOn(validationStub, 'validate').mockReturnValueOnce(new Promise(resolve => resolve(new Error())))
+
+    const httpRequest = makeFakeRequest()
+    const httpResponse = await sut.handle(httpRequest)
+
+    expect(httpResponse).toEqual(badRequest(new Error()))
+  })
 })
