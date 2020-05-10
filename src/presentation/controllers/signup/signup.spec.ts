@@ -1,10 +1,9 @@
 import { SignUpController } from './signup'
-import { HttpRequest } from './signup-protocols'
+import { HttpRequest, Validation } from './signup-protocols'
 import { AddAccount, AddAccountModel } from '../../../domain/usecases/add-account'
 import { AccountModel } from '../../../domain/account-model'
 import { ServerError } from '../../errors'
 import { badRequest, okResponse, serverError } from '../../helpers'
-import { Validation } from '../../helpers/validators/validation'
 
 interface SutTypes {
   sut: SignUpController
