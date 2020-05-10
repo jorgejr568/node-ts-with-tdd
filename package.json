@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "sucrase-node src/main/server.ts",
+    "start": "nodemon --exec sucrase-node src/main/server.ts",
     "test": "jest --passWithNoTests --silent --noStackTrace --runInBand",
     "test:verbose": "jest --passWithNoTests --runInBand",
     "test:unit": "npm test -- --watch -c jest-unit.config.js",
@@ -42,6 +42,7 @@
     "husky": "^4.2.5",
     "jest": "^25.5.4",
     "lint-staged": "^10.2.2",
+    "nodemon": "^2.0.3",
     "sucrase": "^3.13.0",
     "supertest": "^4.0.2",
     "ts-jest": "^25.5.0",
