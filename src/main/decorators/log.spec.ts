@@ -36,4 +36,23 @@ describe('LogControllerDecorator', () => {
       }
     })
   })
+
+  test('Should return same controller handle response', async () => {
+    const { sut, controllerStub } = makeSut()
+    jest.spyOn(controllerStub, 'handle').mockReturnValueOnce(
+      new Promise(resolve => resolve({ statusCode: 200, body: { mocked: true } }))
+    )
+    const httpResponse = await sut.handle({
+      body: {
+        foo: 'bar'
+      }
+    })
+
+    expect(httpResponse).toEqual({
+      statusCode: 200,
+      body: {
+        mocked: true
+      }
+    })
+  })
 })
