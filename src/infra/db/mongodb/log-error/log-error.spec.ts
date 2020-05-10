@@ -7,6 +7,8 @@ const makeSut = (): LogErrorRepository => {
 }
 
 describe('LogError Mongo Repository', () => {
+  let errorCollection
+
   beforeAll(async () => {
     await MongoHelper.connect(process.env.MONGO_URL)
   })
@@ -16,16 +18,23 @@ describe('LogError Mongo Repository', () => {
   })
 
   beforeEach(async () => {
-    const collection = await MongoHelper.getCollection('logs')
-    await collection.deleteMany({})
+    errorCollection = await MongoHelper.getCollection('log_errors')
+    await errorCollection.deleteMany({})
   })
 
-  test('Is logging stack error', async () => {
+  test('Should return true on success logging', async () => {
     const fakeError = new Error('Testing logError')
     const sut = makeSut()
 
     const inserted = await sut.log(fakeError.stack)
 
     expect(inserted).toBeTruthy()
+  })
+
+  test('Should create an error log on success', async () => {
+    const sut = makeSut()
+    await sut.log('any_error')
+    const count = await errorCollection.countDocuments()
+    expect(count).toBe(1)
   })
 })
