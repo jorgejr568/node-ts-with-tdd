@@ -1,11 +1,9 @@
-import { ValidationComposite } from '../../../presentation/helpers/validators/validation-composite'
-import { RequiredFieldsValidation } from '../../../presentation/helpers/validators/required-fields-validation'
-import { Validation } from '../../../presentation/protocols/validation'
-import { EmailValidation } from '../../../presentation/helpers/validators/email-validation'
+import { Validation } from '../../../presentation/protocols'
+import { ValidationComposite, EmailValidation, RequiredFieldsValidation } from '../../../presentation/validators'
 import { EmailValidatorAdapter } from '../../../utils/email-validator-adapter'
 import { makeLoginValidation } from './login-validation'
 
-jest.mock('../../../presentation/helpers/validators/validation-composite')
+jest.mock('../../../presentation/validators/validation-composite')
 
 describe('Login Validation', () => {
   test('Should construct ValidationComposite with correct validations', async () => {

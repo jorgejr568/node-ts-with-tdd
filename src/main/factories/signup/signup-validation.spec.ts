@@ -1,12 +1,9 @@
-import { ValidationComposite } from '../../../presentation/helpers/validators/validation-composite'
-import { RequiredFieldsValidation } from '../../../presentation/helpers/validators/required-fields-validation'
-import { Validation } from '../../../presentation/protocols/validation'
-import { EmailValidation } from '../../../presentation/helpers/validators/email-validation'
-import { CompareFieldsValidation } from '../../../presentation/helpers/validators/compare-fields-validation'
+import { ValidationComposite, EmailValidation, CompareFieldsValidation, RequiredFieldsValidation } from '../../../presentation/validators'
+import { Validation } from '../../../presentation/protocols'
 import { EmailValidatorAdapter } from '../../../utils/email-validator-adapter'
 import { makeSignUpValidation } from './signup-validation'
 
-jest.mock('../../../presentation/helpers/validators/validation-composite')
+jest.mock('../../../presentation/validators/validation-composite')
 
 describe('SignUp Validation', () => {
   test('Should construct ValidationComposite with correct validations', async () => {
