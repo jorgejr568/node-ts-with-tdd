@@ -83,6 +83,28 @@ describe('Login Controller', () => {
     expect(httpResponse).toEqual(error)
   })
 
+  test('Should return 500 if Email validator throws', async () => {
+    const { sut, emailValidatorStub } = makeSut()
+    jest.spyOn(emailValidatorStub, 'isValid').mockImplementationOnce(() => {
+      throw new Error()
+    })
+
+    const httpResponse = await sut.handle(makeFakeHttpRequest())
+    const error = serverError()
+
+    expect(httpResponse).toEqual(error)
+  })
+
+  test('Should return 500 if Authentication throws', async () => {
+    const { sut, authenticationStub } = makeSut()
+    jest.spyOn(authenticationStub, 'auth').mockReturnValueOnce(new Promise((resolve, reject) => reject(new Error())))
+
+    const httpResponse = await sut.handle(makeFakeHttpRequest())
+    const error = serverError()
+
+    expect(httpResponse).toEqual(error)
+  })
+
   test('Should call EmailValidator with correct values', async () => {
     const { sut, emailValidatorStub } = makeSut()
     const isValidSpy = jest.spyOn(emailValidatorStub, 'isValid')
