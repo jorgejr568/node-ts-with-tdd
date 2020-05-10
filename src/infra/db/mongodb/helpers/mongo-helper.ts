@@ -11,10 +11,12 @@ export const MongoHelper = {
 
   async disconnect (): Promise<void> {
     await this.client.close()
+    this.client = null
   },
 
-  getCollection (name: string): Collection {
-    return this.client.db().collection(name)
+  async getCollection (name: string): Promise<Collection> {
+    if (!this.client?.isConnected()) await this.connect()
+    return new Promise(resolve => resolve(this.client.db().collection(name)))
   },
 
   map_IdtoId (collection: any): any {
