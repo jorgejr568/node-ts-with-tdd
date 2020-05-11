@@ -18,7 +18,7 @@ export class JWTAdapter implements TokenAdapter {
 
   async decode (token: string): Promise<AuthenticatableModel> {
     const jwtDecoded: any = jwt.verify(token, this.key)
-    const authenticatable: AuthenticatableModel = { id: jwtDecoded.id, type: jwtDecoded.type }
+    const authenticatable: AuthenticatableModel = { id: jwtDecoded.id }
     return new Promise(resolve => resolve(authenticatable))
   }
 }

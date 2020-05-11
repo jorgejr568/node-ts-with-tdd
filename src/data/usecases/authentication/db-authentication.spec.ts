@@ -3,11 +3,13 @@ import { LoadAccountByEmailRepository } from '../../protocols/db/load-account-by
 import { DbAuthentication } from './db-authentication'
 import { AuthenticationModel } from '../../../domain/usecases/authentication'
 import { HashCompare } from '../../protocols/crypt/hash-compare'
+import { AuthenticatableModel, TokenAdapter } from '../../../presentation/protocols/token-adapter'
 
 interface SutTypes {
   loadAccountByEmailRepositoryStub: LoadAccountByEmailRepository
   hashCompareStub: HashCompare
   sut: DbAuthentication
+  tokenAdapterStub: TokenAdapter
 }
 
 const makeFakeAccount = (): AccountModel => ({
@@ -22,6 +24,10 @@ const makeFakeAuthentication = (): AuthenticationModel => ({
   password: 'any_password'
 })
 
+const makeFakeAuthenticatableModel = (): AuthenticatableModel => ({
+  id: 'any_id'
+})
+
 const makeSut = (): SutTypes => {
   class LoadAccountByEmailRepositoryStub implements LoadAccountByEmailRepository {
     async load (email: string): Promise<AccountModel> {
@@ -34,15 +40,26 @@ const makeSut = (): SutTypes => {
       return new Promise(resolve => resolve(true))
     }
   }
+  class TokenAdapterStub implements TokenAdapter {
+    async encode (authenticatable: AuthenticatableModel): Promise<string> {
+      return new Promise(resolve => resolve('token'))
+    }
 
+    async decode (token: string): Promise<AuthenticatableModel> {
+      return new Promise(resolve => resolve(makeFakeAuthenticatableModel()))
+    }
+  }
+
+  const tokenAdapterStub = new TokenAdapterStub()
   const hashCompareStub = new HashCompareStub()
   const loadAccountByEmailRepositoryStub = new LoadAccountByEmailRepositoryStub()
-  const sut = new DbAuthentication(loadAccountByEmailRepositoryStub, hashCompareStub)
+  const sut = new DbAuthentication(loadAccountByEmailRepositoryStub, hashCompareStub, tokenAdapterStub)
 
   return {
     sut,
     loadAccountByEmailRepositoryStub,
-    hashCompareStub
+    hashCompareStub,
+    tokenAdapterStub
   }
 }
 describe('DB Authentication UseCase', () => {
@@ -97,5 +114,13 @@ describe('DB Authentication UseCase', () => {
 
     const accessToken = await sut.auth(makeFakeAuthentication())
     expect(accessToken).toBeTruthy()
+  })
+
+  test('Should call encode with correct params', async () => {
+    const { sut, tokenAdapterStub } = makeSut()
+    const tokenSpy = jest.spyOn(tokenAdapterStub, 'encode')
+
+    await sut.auth(makeFakeAuthentication())
+    expect(tokenSpy).toHaveBeenCalledWith(makeFakeAuthenticatableModel())
   })
 })

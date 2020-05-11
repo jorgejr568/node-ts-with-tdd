@@ -1,5 +1,4 @@
 export interface AuthenticatableModel {
-  type: string
   id: string
 }
 
