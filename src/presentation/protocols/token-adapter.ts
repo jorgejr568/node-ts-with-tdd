@@ -4,5 +4,6 @@ export interface AuthenticatableModel {
 }
 
 export interface TokenAdapter {
-  generate (authenticatable: AuthenticatableModel): Promise<string>
+  encode (authenticatable: AuthenticatableModel): Promise<string>
+  decode (token: string): Promise<AuthenticatableModel>
 }
