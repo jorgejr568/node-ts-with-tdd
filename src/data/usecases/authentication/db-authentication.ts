@@ -1,7 +1,7 @@
 import { Authentication, AuthenticationModel } from '../../../domain/usecases/authentication'
 import { LoadAccountByEmailRepository } from '../../protocols/db/load-account-by-email-repository'
 import { HashCompare } from '../../protocols/crypt/hash-compare'
-import { TokenAdapter } from '../../../presentation/protocols/token-adapter'
+import { TokenAdapter } from '../../protocols/token/token-adapter'
 
 export class DbAuthentication implements Authentication {
   private readonly loadAccountByEmailRepository: LoadAccountByEmailRepository

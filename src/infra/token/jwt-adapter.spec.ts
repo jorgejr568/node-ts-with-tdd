@@ -1,5 +1,5 @@
 import { JWTAdapter } from './jwt-adapter'
-import { AuthenticatableModel } from '../presentation/protocols/token-adapter'
+import { AuthenticatableModel } from '../../data/protocols/token/token-adapter'
 import jwt from 'jsonwebtoken'
 
 const jwtKey = 'jwt_key'

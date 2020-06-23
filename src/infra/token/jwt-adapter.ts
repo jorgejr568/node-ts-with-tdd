@@ -1,4 +1,4 @@
-import { AuthenticatableModel, TokenAdapter } from '../presentation/protocols/token-adapter'
+import { AuthenticatableModel, TokenAdapter } from '../../data/protocols/token/token-adapter'
 import jwt from 'jsonwebtoken'
 
 export class JWTAdapter implements TokenAdapter {

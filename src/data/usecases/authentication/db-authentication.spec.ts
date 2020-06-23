@@ -3,7 +3,7 @@ import { LoadAccountByEmailRepository } from '../../protocols/db/load-account-by
 import { DbAuthentication } from './db-authentication'
 import { AuthenticationModel } from '../../../domain/usecases/authentication'
 import { HashCompare } from '../../protocols/crypt/hash-compare'
-import { AuthenticatableModel, TokenAdapter } from '../../../presentation/protocols/token-adapter'
+import { AuthenticatableModel, TokenAdapter } from '../../protocols/token/token-adapter'
 
 interface SutTypes {
   loadAccountByEmailRepositoryStub: LoadAccountByEmailRepository

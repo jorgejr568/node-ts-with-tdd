@@ -2,7 +2,7 @@ import { ValidationComposite, RequiredFieldsValidation, EmailValidation } from '
 import { Validation } from '../../../presentation/protocols'
 import { EmailValidatorAdapter } from '../../../utils/email-validator-adapter'
 
-export const makeLoginValidation = (): ValidationComposite => {
+export const makeSignInValidation = (): ValidationComposite => {
   const validations: Validation[] = []
   for (const field of ['email', 'password']) {
     validations.push(new RequiredFieldsValidation(field))
