@@ -7,8 +7,7 @@ const expiration = 60 * 60
 const makeSut = (): JWTAdapter => (new JWTAdapter(jwtKey, expiration))
 
 const makeFakeAuthenticatable = (): AuthenticatableModel => ({
-  id: 'any_id',
-  type: 'any_type'
+  id: 'any_id'
 })
 
 describe('JWT Adapter', () => {
